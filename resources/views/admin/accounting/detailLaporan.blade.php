@@ -27,25 +27,28 @@ Sepatu Bordir.id | Accounting
 
 @section('content')
 <div class="main">
-    <h4>Konfirmasi Pembayaran</h4>
+    <h4>Laporan Pembelian Kode ({{$data->kode}})</h4>
     <table class="table table-hover ">
         <thead class="thead-light">
             <tr class="table-danger">
-                <th scope="col">ID</th>
-                <th scope="col">Tanggal</th>
-                <th scope="col">Nama Agen</th>
-                <th scope="col">Jenis Transaksi</th>
-                <th scope="col">Action</th>
+                <th scope="col">No</th>
+                <th scope="col">Barang</th>
+                <th scope="col">Jumlah</th>
+                <th scope="col">Vendor</th>
+                <th scope="col">Total Harga</th>
+                <th scope="col">Bukti Pembelian</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($orders as $od)
+        @php $in = 1 @endphp
+            @foreach($data->bahan as $d)
             <tr>
-                    <td>{{$od->idPemesanan}}</td>
-                    <td>{{$od->tanggal}}</td>
-                    <td>Otto</td>
-                    <td>{{$od->jenisPembayaran}}</td>
-                    <td><a href="{{url('accounting/konfirmasi')}}/{{$od->idPemesanan}}" type="button" class="btn btn-light">Detail</a></td>
+                    <td>{{$in++}}</td>
+                    <td>{{$d->kode_bahan}}</td>
+                    <td>{{$d->jumlah}}</td>
+                    <td>{{$d->vendor}}</td>
+                    <td>{{"Rp. " . number_format($d->harga,0,',','.')}}</td>
+                    <td><a target="_blank" href="http://{{$url}}{{str_replace('public','storage',$d->bukti)}}" type="button" class="btn btn-light">Lihat</a></td>
                 </tr>
             @endforeach
         </tbody>

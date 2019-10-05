@@ -52,18 +52,17 @@ class CheckoutController extends Controller
             $det = date('dmYHis');
             $aidi = $det . $rdm;
             $jenis= $request->metode;
+            $totalPrice = 0;
             $params = array();
             foreach ($cartProducts as $cp) {
+                $totalPrice+=($cp->subtotal);
                 $params[] = [
                     'productId' => $cp->id,
                     'idPemesanan' => $aidi,
-                    'productName' => $cp->name,
-                    'price' => $cp->price,
                     'quantity' => $cp->qty,
-                    'size' => $cp->options->size,
+                    'size' =>$cp->options->size,
                     'tanggal' => $tgl,
                     'totalPrice' => $cp->subtotal,
-                    'jenis'=>$jenis,
                     'namaCustomer' => session('user')->username,
                     // 'jenis'->$request->metode
 
@@ -73,7 +72,32 @@ class CheckoutController extends Controller
 
                 // Cart::remove($cp->rowId);
             }
+            
+            
+            if($jenis=='kredit'){
+                $dataTagihan = [
+                    'customerId'=>session('user')->id,
+                    'orderId'=>$aidi,
+                    'sisa'=>($totalPrice-$request->bayarAwal),
+                    'jumlah'=>$request->bayarAwal,
+                    'tanggal'=>date("Y-m-d")
+                ];
+                DB::table('tagihan')->insert($dataTagihan);
+            }
+            
 
+            $dataPengiriman = [
+                'idPemesanan' => $aidi,
+                'address' => session('user')->address
+            ];
+            $dataPembayaran = [
+                'totalPembayaran' => $totalPrice,
+                'jenisPembayaran' => $jenis,
+                'idPemesanan' => $aidi
+            ];
+
+            DB::table('pengiriman')->insert($dataPengiriman);
+            DB::table('pembayaran')->insert($dataPembayaran);
             DB::table('orders')->insert($params);
 
             return view('checkout.thanks');

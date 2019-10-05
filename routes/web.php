@@ -20,44 +20,64 @@ Route::group(['middleware' => ['Adminsess']], function () {
    
 
 	Route::get('/admin', 'AdminController@index')->name('admin.index');
-	
+    
     Route::get('/accounting', 'AccountingController@index')->name('accounting.index');
-    Route::get('/accounting/konfirmasi', 'AccountingController@index');
-    Route::get('/accounting/konfirmasi/{id}', 'AccountingController@show');
-    Route::post('/accounting/konfirmasi', 'AccountingController@confirm');
-    Route::get('/accounting/tagihan', 'AccountingController@listTagihan');
-	Route::get('/accounting/tagihan/{id}', 'AccountingController@tagihanDetail');
+    Route::prefix('accounting')->group(function(){
+        Route::get('/konfirmasi', 'AccountingController@index');
+        Route::get('/konfirmasi/{id}', 'AccountingController@show');
+        Route::post('/konfirmasi', 'AccountingController@confirm');
+        Route::get('/tagihan', 'AccountingController@listTagihan');
+        Route::get('/tagihan/{id}', 'AccountingController@tagihanDetail');
+        Route::get('/laporan', 'AccountingController@listLaporan');
+        Route::get('/laporan/{id}','AccountingController@detailLaporan');
+    });
+    
 	
 
-	Route::get('/marketing', 'MarketingController@index')->name('marketing.index');
-	Route::get('/marketing/pengadaan', 'MarketingController@index');
-	Route::get('/marketing/pengadaan/{city}', 'MarketingController@showByCity');
-	Route::get('/marketing/pengadaan/{city}/{id}', 'MarketingController@detailOrder');
-	Route::post('/marketing/pengadaan/send', 'MarketingController@sendOrder');
-    Route::get('/marketing/status-pemesanan', 'MarketingController@listStatusPemesanan');
-    Route::get('/marketing/pengiriman', 'MarketingController@listPengiriman');
-    Route::get('/marketing/pengiriman/{id}', 'MarketingController@detailPengiriman');
-    Route::post('/marketing/pengiriman/send', 'MarketingController@kirimPengiriman');
-
+    Route::get('/marketing', 'MarketingController@index')->name('marketing.index');
+    Route::prefix('marketing')->group(function(){
+        Route::get('/pengadaan', 'MarketingController@index');
+        Route::get('/pengadaan/{city}', 'MarketingController@showByCity');
+        Route::get('/pengadaan/{city}/{id}', 'MarketingController@detailOrder');
+        Route::post('/pengadaan/send', 'MarketingController@sendOrder');
+        Route::get('/status-pemesanan', 'MarketingController@listStatusPemesanan');
+        Route::get('/pengiriman', 'MarketingController@listPengiriman');
+        Route::get('/pengiriman/{id}', 'MarketingController@detailPengiriman');
+        Route::post('/pengiriman/send', 'MarketingController@kirimPengiriman');
+    });
+    
     Route::get('/category', 'CategoryController@index')->name('category.index');
-    Route::get('/category/create', 'CategoryController@create');
-    Route::get('/category/{id}', 'CategoryController@show')->name('category.show');
-    Route::get('/category/{id}/edit', 'CategoryController@edit');
-    Route::get('/category/{id}/delete', 'CategoryController@delete');
     Route::post('/category', 'CategoryController@store');
-    Route::post('/category/search', 'CategoryController@search');
-    Route::put('/category/{id}', 'CategoryController@update');
-    Route::delete('/category/{id}', 'CategoryController@destroy');
+    Route::prefix('category')->group(function(){
+        Route::get('/create', 'CategoryController@create');
+        Route::get('/{id}', 'CategoryController@show')->name('category.show');
+        Route::get('/{id}/edit', 'CategoryController@edit');
+        Route::get('/{id}/delete', 'CategoryController@delete');
+        Route::post('/search', 'CategoryController@search');
+        Route::put('/{id}', 'CategoryController@update');
+        Route::delete('/{id}', 'CategoryController@destroy');
+    });
 
     Route::get('/product', 'ProductController@index')->name('product.index');
-    Route::get('/product/create', 'ProductController@create')->name('product.create');
-    Route::get('/product/{id}', 'ProductController@show');
-    Route::get('/product/{id}/edit', 'ProductController@edit');
-    Route::get('/product/{id}/delete', 'ProductController@delete');
     Route::post('/product', 'ProductController@store');
-    Route::post('/product/search', 'ProductController@search');
-    Route::put('/product/{id}', 'ProductController@update');
-    Route::delete('/product/{id}', 'ProductController@destroy');
+    Route::prefix('product')->group(function(){
+        Route::get('/create', 'ProductController@create')->name('product.create');
+        Route::get('/{id}', 'ProductController@show');
+        Route::get('/{id}/edit', 'ProductController@edit');
+        Route::get('/{id}/delete', 'ProductController@delete');
+        Route::post('/search', 'ProductController@search');
+        Route::put('/{id}', 'ProductController@update');
+        Route::delete('/{id}', 'ProductController@destroy');
+    });
+   
+    Route::get('/outside','OutsideController@index')->name('outside.index');
+    Route::prefix('outside')->group(function(){
+        Route::name('outside.')->group(function(){
+            Route::get('/detail/{id}','OutsideController@detail')->name('detail');
+            Route::post('/konfirmasi','OutsideController@konfirmasi')->name('konfirmasi');
+        });
+    });
+    
 });
 
 Route::group(['middleware' => ['sess']], function () {
@@ -66,9 +86,15 @@ Route::group(['middleware' => ['sess']], function () {
     Route::get('/home/product/{id}', 'HomeController@showProduct')->name('home.product');
     Route::get('/home/category/{id}', 'HomeController@showByCategory')->name('home.category');
 
+
     Route::get('/profile', 'UserprofileController@show')->name('userprofile.show');
-    Route::get('/profile/{id}/edit', 'UserprofileController@edit')->name('userprofile.edit');
-    Route::put('/profile/{id}', 'UserprofileController@update')->name('userprofile.update');
+    Route::prefix('profile')->group(function(){
+        Route::get('/{id}/edit', 'UserprofileController@edit')->name('userprofile.edit');
+        Route::put('/{id}', 'UserprofileController@update')->name('userprofile.update');
+        Route::get('/tagihan','UserprofileController@listTagihan')->name('userprofile.tagihan');
+        Route::get('/tagihan/{id}/{idTagihan}','UserprofileController@detailTagihan')->name('userprofile.detailTagihan');
+    });
+    
 
     Route::get('/order', 'OrderController@index')->name('order.index');
     Route::get('/order/{id}', 'OrderController@show')->name('order.show');
@@ -81,6 +107,8 @@ Route::group(['middleware' => ['sess']], function () {
     Route::get('/detailpesanan/{id}', 'OrderController@showHistoryDetail');
     Route::get('/detailpesanan/terima/{id}', 'OrderController@receiveOrder');
     Route::post('/uploadbukti', 'OrderController@uploadBuktiBayar');
+
+    Route::post('/angsur','UserprofileController@angsur');
 
 });
 
@@ -99,6 +127,19 @@ Route::post('/registration', 'RegistrationController@store');
 Route::get('/logout', 'LogoutController@index');
 
 Route::get('/tesss', 'LogoutController@testapi');
+
+Route::get('sendbasicemail','MailController@basic_email');
+Route::get('sendhtmlemail','MailController@html_email');
+
+use App\Mail\MailtrapExample;
+use Illuminate\Support\Facades\Mail;
+Route::get('/send-mail', function () {
+ 
+    Mail::to('yfebiyan@gmail.com')->send(new MailtrapExample()); 
+ 
+    return 'A message has been sent to Mailtrap!';
+ 
+});
 
 //Route::get('/home', 'HomeController@index')->middleware('sess');
 

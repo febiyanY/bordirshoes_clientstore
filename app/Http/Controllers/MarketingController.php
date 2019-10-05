@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+
 class MarketingController extends Controller
 {
     //
     public function index()
     {
 
-        $rs = DB::table('kotadistribusi')->get();
+        $rs = DB::table('kotadistribusi')
+        ->select('*',DB::raw("(select COUNT(DISTINCT idPemesanan) from orders where namaCustomer in (select customerName from customer where kotaDistribusi = kotadistribusi.id) and status = 'Terkonfirmasi') as counter"))
+        ->get();
         return view('admin.marketing.index', ['city' => $rs]);
+        // return response()->json($rs);
     }
 
     public function showByCity($city)
@@ -37,7 +41,15 @@ class MarketingController extends Controller
 
     public function detailOrder($city, $id)
     {
-        $rs = DB::table('orders')->where('idPemesanan', $id)
+        // $rs = DB::table('orders')->where('idPemesanan', $id)
+        //     ->get();
+            $rs = DB::table('orders')
+            ->join('products','orders.productId','=','products.productId')
+            ->join('pengiriman','pengiriman.idPemesanan','=','orders.idPemesanan')
+            ->join('pembayaran','pembayaran.idPemesanan','=','orders.idPemesanan')
+            ->where('orders.idPemesanan',$id)
+            ->select('orders.*','products.productName','products.price','pengiriman.address','pengiriman.buktiPengiriman','pembayaran.totalPembayaran','pembayaran.jenisPembayaran as jenis','pembayaran.buktiPembayaran')
+            // ->groupBy('orders.idPemesanan')
             ->get();
         return view('admin.marketing.detailOrder', ['detail' => $rs, 'city' => $city]);
     }

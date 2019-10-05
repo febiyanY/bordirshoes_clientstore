@@ -31,3 +31,5 @@ Route::get('/produksi/done/confirm/{id}', 'OrderController@apiDoneProduction');
 Route::get('/logistik/list-ready-pengiriman', 'OrderController@apiListReadyPengiriman');
 Route::get('/logistik/detail-ready-pengiriman/{id}', 'OrderController@apiReadyPengirimanDetail');
 Route::post('/logistik/send-ready-pengiriman', 'OrderController@apiReadyPengirimanSend');
+
+Route::post('/api/test','OrderController@tesApi');

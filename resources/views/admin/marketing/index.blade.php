@@ -11,7 +11,7 @@ Sepatu Bordir.id | Marketing
         width: 100%;
         border-radius: 5px;
         text-align: center;
-        height: 10vh;
+        height: 12vh;
         padding: 2%;
         margin-top: 20%;
         transition: 0.2s;
@@ -56,9 +56,9 @@ Sepatu Bordir.id | Marketing
 
         @foreach($city as $row)
         <div class="col-sm-3">
-            <a href="{{url('marketing/pengadaan')}}/{{$row->namaKota}}">
+            <a href="{{url('marketing/pengadaan')}}/{{$row->id}}">
                 <div class="cityBox">
-                    <p>{{ucfirst($row->namaKota)}}</p>
+                    <p>{{ucfirst($row->namaKota)}}</p> <p>({{$row->counter}})</p>
                 </div>
             </a>
         </div>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('pagetitle')
-Sepatu Bordir.id | Accounting
+Sepatu Bordir.id | Outside Sale
 @endsection
 
 @section('header')
@@ -18,35 +18,40 @@ Sepatu Bordir.id | Accounting
     <div class="upper">
         <h4>{{session('user')->username}}</h4>
     </div>
-    <a href="{{url('accounting/konfirmasi')}}">Konfirmasi Pembayaran</a>
-    <a href="{{url('accounting/tagihan')}}">Tagihan</a>
-    <a href="{{url('accounting/laporan')}}">Laporan Keuangan</a>
+    <a href="{{url('/outside')}}">Konfirmasi Akun Customer</a>
     <a href="{{url('/logout')}}">Log Out</a>
+
 </div>
 @endsection
 
 @section('content')
 <div class="main">
-    <h4>Konfirmasi Pembayaran</h4>
+    <h4>Konfirmasi Customer</h4>
+    @if (session('msg'))
+    <div class="alert alert-success">
+        {{ session('msg') }}
+    </div>
+    @endif
     <table class="table table-hover ">
         <thead class="thead-light">
             <tr class="table-danger">
                 <th scope="col">ID</th>
-                <th scope="col">Tanggal</th>
-                <th scope="col">Nama Agen</th>
-                <th scope="col">Jenis Transaksi</th>
+                <th scope="col">Username</th>
+                <th scope="col">Kota Distribusi</th>
+                <th scope="col">Email</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($orders as $od)
+            @foreach($rs as $od)
             <tr>
-                    <td>{{$od->idPemesanan}}</td>
-                    <td>{{$od->tanggal}}</td>
-                    <td>Otto</td>
-                    <td>{{$od->jenisPembayaran}}</td>
-                    <td><a href="{{url('accounting/konfirmasi')}}/{{$od->idPemesanan}}" type="button" class="btn btn-light">Detail</a></td>
-                </tr>
+                <td>{{$od->customerId}}</td>
+                <td>{{$od->customerName}}</td>
+                <td>{{$od->kotaDistribusi}}</td>
+                <td>{{$od->alamatEmail}}</td>
+                <td><a href="{{route('outside.detail',['id'=>$od->customerId])}}" type="button"
+                        class="btn btn-light">Detail</a></td>
+            </tr>
             @endforeach
         </tbody>
     </table>

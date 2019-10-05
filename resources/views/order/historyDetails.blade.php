@@ -152,7 +152,7 @@ Sepatu Bordir.id| History Detail
                             <td></td>
                             <td></td>
                             <td><strong>Jenis</strong></td>
-                            <td class="text-right"><strong>{{$detail[0]->jenis}}</strong></td>
+                            <td class="text-right"><strong>{{$detail[0]->jenisPembayaran}}</strong></td>
                         </tr>
                         <tr>
                             <td></td>

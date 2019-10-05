@@ -20,7 +20,7 @@ Sepatu Bordir.id | Accounting
     </div>
     <a href="{{url('accounting/konfirmasi')}}">Konfirmasi Pembayaran</a>
     <a href="{{url('accounting/tagihan')}}">Tagihan</a>
-    <a href="#clients">Laporan Keuangan</a>
+    <a href="{{url('accounting/laporan')}}">Laporan Keuangan</a>
     <a href="{{url('/logout')}}">Log Out</a>
 </div>
 @endsection

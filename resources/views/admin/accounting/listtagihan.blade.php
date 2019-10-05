@@ -20,7 +20,7 @@ Sepatu Bordir.id | Accounting
     </div>
     <a href="{{url('accounting/konfirmasi')}}">Konfirmasi Pembayaran</a>
     <a href="{{url('accounting/tagihan')}}">Tagihan</a>
-    <a href="#clients">Laporan Keuangan</a>
+    <a href="{{url('accounting/laporan')}}">Laporan Keuangan</a>
     <a href="{{url('/logout')}}">Log Out</a>
 </div>
 @endsection
@@ -31,21 +31,17 @@ Sepatu Bordir.id | Accounting
     <table class="table table-hover ">
         <thead class="thead-light">
             <tr class="table-danger">
-                <th scope="col">ID</th>
+                <th scope="col">ID Order</th>
                 <th scope="col">Tanggal</th>
-                <th scope="col">Nama Agen</th>
-                <th scope="col">Jenis Transaksi</th>
                 <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($orders as $od)
+            @foreach($rs as $od)
             <tr>
-                    <td>{{$od->idPemesanan}}</td>
+                    <td>{{$od->orderId}}</td>
                     <td>{{$od->tanggal}}</td>
-                    <td>Otto</td>
-                    <td>{{$od->jenis}}</td>
-                    <td><a href="{{url('accounting/tagihan')}}/{{$od->idPemesanan}}" type="button" class="btn btn-light">Tagih</a></td>
+                    <td><a href="{{url('accounting/tagihan')}}/{{$od->orderId}}" type="button" class="btn btn-light">Detail</a></td>
                 </tr>
             @endforeach
         </tbody>

@@ -121,44 +121,21 @@ class OrderController extends Controller
 
 
     public function showHistoryDetail($id){
-        // $rs = DB::table('orders')
-        // ->selectRaw(" *, (select buktiPengiriman from pengiriman where orders.idPengiriman=pengiriman.idPengiriman) as buktiPengiriman")
-        // ->where('idPemesanan',$id)->get();
-        // $rs = 
-        // return view('order.historyDetails',['detail'=>$rs]);
-        $res = DB::table('orders')
-                ->join('products','orders.productId','=','products.productId')
-                ->join('pengiriman','pengiriman.idPemesanan','=','orders.idPemesanan')
-                ->join('pembayaran','pembayaran.idPemesanan','=','orders.idPemesanan')
-                ->where('orders.idPemesanan',$id)
-                ->select('orders.*','products.productName','products.price','pengiriman.address','pengiriman.buktiPengiriman','pembayaran.totalPembayaran','pembayaran.jenisPembayaran','pembayaran.buktiPembayaran')
-                // ->groupBy('orders.idPemesanan')
-                ->get();
-        // return response()->json($res);
-        return view('order.historyDetails',['detail'=>$res]);
+        $rs = DB::table('orders')
+        ->selectRaw(" *, (select buktiPengiriman from pengiriman where orders.idPemesanan=pengiriman.idPemesanan) as buktiPengiriman")
+        ->where('idPemesanan',$id)->get();
+        return view('order.historyDetails',['detail'=>$rs]);
     }
 
     public function uploadBuktiBayar(Request $req){
         $id =$req->idPemesanan;
         $path = $req->file('buktiPembayaran')->store('public/image/bukti');
-        if(DB::table('tagihan')->where('orderId',$id)->exists()){
-            $path2 = $req->file('buktiPembayaran')->store('public/image/bukti/tagihan');
-            $path2 = str_replace('public','storage',$path2);
-            $dataUpdateTagihan = [
-                'bukti'=>$path2
-            ];
-            DB::table('tagihan')->where('orderId',$id)->update($dataUpdateTagihan);
-
-        }
         $path = str_replace('public','storage',$path);
         $dataUpdate = [
             'status'=>'Menunggu Konfirmasi',
-            // 'buktiPembayaran'=>$path
+            'buktiPembayaran'=>$path
         ];
-        
         DB::table('orders')->where('idPemesanan',$id)->update($dataUpdate);
-        DB::table('pembayaran')->where('idPemesanan',$id)->update(['buktiPembayaran'=>$path]);
-        
         return redirect('/profile');
     }
 
@@ -173,12 +150,18 @@ class OrderController extends Controller
     }
 
     public function apiOrderDetail($id){
+        // $rs = DB::table('orders')->where('idPemesanan',$id)
+        // ->orderBy('productName','asc')
+        // ->orderBy('size','asc')
+        // ->get();
+
         $rs = DB::table('orders')
-				->select('idPemesanan','productName','namaCustomer', 'tanggal', 'status','size','quantity','totalPrice',DB::raw("(select category from categories where categoryId = (select categoryId from products where orders.productName=products.productName) ) as category "))
-				->where('idPemesanan',$id)
-				->orderBy('productName','asc')
-				->orderBy('size','asc')
-				->get();
+        // ->select('productName','size','quantity','totalPrice',DB::raw("(select category from categories where categoryId=(select categoryId from products where products.productName=orders.productName) as category "))
+        ->select('idPemesanan','productName','size','quantity','totalPrice',DB::raw("(select category from categories where categoryId = (select categoryId from products where orders.productName=products.productName) ) as category "))
+        ->where('idPemesanan',$id)
+        ->orderBy('productName','asc')
+        ->orderBy('size','asc')
+        ->get();
 
         return response()->json($rs);
     }
@@ -245,7 +228,5 @@ class OrderController extends Controller
         return response()->json(['status'=>'success']);
     }
 
-
-   
 
 }

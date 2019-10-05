@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RegistrationController extends Controller
 {
@@ -17,7 +18,7 @@ class RegistrationController extends Controller
         if ($request->password == $request->passwordConfirmation) {
             $params = [
                 'username' => $request->username,
-                'password' => $request->password,
+                'password' => Hash::make($request->password),
                 'email' => $request->email,
                 'type' => 'user',
             ];

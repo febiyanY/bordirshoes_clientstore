@@ -164,7 +164,8 @@ Sepatu Bordir.id | Home
                 <!-- End product counting -->
                 @if(!$products->isEmpty())
                 <div class="col-12">
-                    <nav aria-label="...">
+                    {{$products->links('vendor.pagination.bootstrap-4')}}
+                    <!-- <nav aria-label="...">
                         <ul class="pagination">
                             <li class="page-item disabled">
                                 <a class="page-link" href="#" tabindex="-1">Previous</a>
@@ -178,7 +179,7 @@ Sepatu Bordir.id | Home
                                 <a class="page-link" href="#">Next</a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav> -->
                 </div>
                 @endif
             </div>

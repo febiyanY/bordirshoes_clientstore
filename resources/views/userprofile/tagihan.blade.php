@@ -9,7 +9,7 @@ Sepatu Bordir.id | Index
 <div class="container bootstrap snippet">
   <div class="row">
     <div class="col-sm-10">
-      <h1>Hi, {{session('user')->username}}</h1><!-- </div> -->
+      <h1>Tagihan {{session('user')->username}}</h1><!-- </div> -->
       <!-- <div> -->
       <a style="text-decoration: none;" href="{{route('home.index')}}"><i class="glyphicon glyphicon-home"><strong>
             HOME</strong></i></a>
@@ -48,9 +48,9 @@ Sepatu Bordir.id | Index
         <li class="list-group-item text-right">
           <div>
             <a type="button" class="btn btn-primary" href="{{route('userprofile.tagihan')}}" style="width: 100%">Tagihan 
-              @if(count($tagihanCount) > 0)
-              ({{count($tagihanCount)}})
-             @endif
+              @if(count($data) > 0)
+              ({{count($data)}})
+              @endif
             </a>
           
           </div>
@@ -64,7 +64,7 @@ Sepatu Bordir.id | Index
     <div class="col-sm-9">
 
       <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a href="" data-toggle="tab">My order history<br />Total: {{$orders->count()}}</a></li>
+        <li class="active"><a href="" data-toggle="tab">My Tagihan<br />Total: {{count($data)}}</a></li>
         <!-- <li><a href="#messages" data-toggle="tab">Cronologia Appuntamenti</a></li>
             <li><a href="#settings" data-toggle="tab">Modifica utente</a></li> -->
       </ul>
@@ -76,21 +76,19 @@ Sepatu Bordir.id | Index
               <thead>
                 <tr>
                   <th>Order ID</th>
-                  <th>Tanggal</th>
-                  <th>Status</th>
-
-                  <th>Option</th>
+                  <!-- <th>Sisa Tagihan</th> -->
+                  <th>Detail</th>
                 </tr>
               </thead>
               <tbody id="items">
 
-                @foreach($orders as $order)
+                @foreach($data as $d)
 
                 <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle ">
-                  <td>{{$order->idPemesanan}}</td>
-                  <td>{{$order->tanggal}}</td>
-                  <td>{{$order->status}}</td>
-                  <td><a style="text-decoration: none;" href="/detailpesanan/{{$order->idPemesanan}}">Details <button
+                  <td>{{$d->orderId}}</td>
+                  <!-- <td>Rp.{{number_format($d->sisa, 2, '.', ',')}}</td> -->
+                  
+                  <td><a style="text-decoration: none;" href="{{route('userprofile.detailTagihan',['id'=>$d->orderId,'idTagihan'=>$d->customerId])}}">Detail <button
                         class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></a>
                   </td>
                 </tr>

@@ -32,17 +32,21 @@
                                                 <div class="col-md-9">
                                                     <table class="table table-striped">
                                                         <tr>
-                                                            
-                                                                <div class="form-group">
-                                                                    <label>Metode Pembayaran</label>
-                                                                    <select name="metode" class="form-control"
-                                                                        id="exampleFormControlSelect1">
 
-                                                                        <option>Tunai</option>
-                                                                        <option>Kredit</option>
+                                                            <div class="form-group">
+                                                                <label>Metode Pembayaran</label>
+                                                                <select onchange="checkCredit(this)" name="metode"
+                                                                    class="form-control" id="exampleFormControlSelect1">
 
-                                                                    </select>
-                                                                </div>
+                                                                    <option value="tunai">Tunai</option>
+                                                                    <option value="kredit">Kredit</option>
+
+                                                                </select>
+                                                            </div>
+                                                            <div id="pembayaranAwal" style="display: none" class="form-group">
+                                                                <label>Jumlah Pembayaran Awal</label>
+                                                                <input type="number" class="form-control" name="bayarAwal">
+                                                            </div>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -98,3 +102,16 @@
         </div>
     </div>
     @endsection
+
+    <script>
+        function checkCredit(e) {
+            if(e.value=='kredit'){
+                $('#pembayaranAwal').show();
+                $('[name="bayarAwal"]').attr('required', true);
+            }else{
+                $('#pembayaranAwal').hide();
+                $('[name="bayarAwal"]').attr('required', false);
+            }
+            
+        }
+    </script>

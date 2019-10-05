@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $products = DB::table('products')
-            ->get();
+            ->paginate(6);
 
         $categories = DB::table('categories')
             ->get();
@@ -39,7 +39,7 @@ class HomeController extends Controller
     {
         $products = DB::table('products')
             ->where('categoryId', $id)
-            ->get();
+            ->paginate(6);
 
         $categories = DB::table('categories')
             ->get();

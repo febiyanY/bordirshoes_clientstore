@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2019 at 07:08 PM
+-- Generation Time: Jul 30, 2019 at 03:35 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -67,9 +67,10 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`customerId`, `customerName`, `kotaDistribusi`, `address`, `phone`, `alamatEmail`, `terkonfirmasi`) VALUES
-(0, 'Batman', 'bandung', 'jalan cicicicici', '08777656543', 'batman@mail.com', 'belum'),
+(0, 'Batman', 'jakarta', 'jalan cicicicici', '08777656543', 'batman@mail.com', 'sudah'),
 (12, 'user', 'bandung', 'JalanJalan', '081111222333', 'user@gmail.com', 'belum'),
-(16, 'joker', 'lampung', 'jalanpulang', '089777656543', 'joker@mail.com', 'belum');
+(16, 'joker', 'lampung', 'jalanpulang', '089777656543', 'joker@mail.com', 'belum'),
+(19, 'logi', 'jakarta', 'Jalanin aja', '089999878765', 'logi@mail.com', 'sudah');
 
 -- --------------------------------------------------------
 
@@ -159,10 +160,21 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `idPemesanan`, `tanggal`, `namaCustomer`, `productId`, `productName`, `price`, `quantity`, `totalPrice`, `promo`, `buktiPembayaran`, `size`, `jenis`, `status`, `display`) VALUES
-(1, '22052019102014UWGrfFTH', '2019-05-22', 'joker', 15, 'Sulam-03', 42000, 1, 42000, NULL, 'storage/image/bukti/Wbu2SDEWJBksOTmYbLO96p4ttQwyjGxJY8dO2ZBR.jpeg', 36, 'Tunai', 'Proses pembuatan', 'yes'),
-(2, '22052019102014UWGrfFTH', '2019-05-22', 'joker', 11, 'Bordir-04', 89000, 1, 89000, NULL, 'storage/image/bukti/Wbu2SDEWJBksOTmYbLO96p4ttQwyjGxJY8dO2ZBR.jpeg', 37, 'Tunai', 'Proses pembuatan', 'yes'),
-(3, '22052019102042fqjdW8H1', '2019-05-22', 'user', 19, 'Sandal 02', 10000, 1, 10000, NULL, 'storage/image/bukti/uVILGUTsZvH1NskQDSSZDmM3keeQeVBNytthqRwb.jpeg', 41, 'Kredit', 'Menunggu Pengiriman', 'yes'),
-(4, '22052019105040x1DASMeN', '2019-05-22', 'joker', 18, 'Sandal-01', 20000, 1, 20000, NULL, 'storage/image/bukti/gX6JJecAGLOqBmuobZYulAomLUA7BRSEz8TyT46C.jpeg', 43, 'Tunai', 'Proses pembuatan', 'yes');
+(1, '240720192050451YRJ3PGo', '2019-07-24', 'joker', 5, 'Bordir-01', 79999, 1, 79999, NULL, 'storage/image/bukti/56CJezBGVT1LeaAAYsnVVe1I52skcK7i3g0IY4un.jpeg', 36, 'Tunai', 'Sudah diterima', 'yes'),
+(2, '240720192050451YRJ3PGo', '2019-07-24', 'joker', 17, 'Selop-02', 95000, 1, 95000, NULL, 'storage/image/bukti/56CJezBGVT1LeaAAYsnVVe1I52skcK7i3g0IY4un.jpeg', 40, 'Tunai', 'Sudah diterima', 'yes'),
+(3, '27072019190315dGeryQ7C', '2019-07-27', 'Batman', 13, 'Sulam-01', 135000, 1, 135000, NULL, 'storage/image/bukti/vCanNxMHeIH0nwvVuWDZ8nI2eUE9hgoTaxgkanRi.png', 42, 'Tunai', 'Terkonfirmasi', 'yes'),
+(4, '27072019190337iqOc1lMr', '2019-07-27', 'Batman', 19, 'Sandal 02', 10000, 1, 10000, NULL, 'storage/image/bukti/BKoFj7SQrZbUnN5VioV9wEvAlM7wDVhqw0Ur9nyi.jpeg', 41, 'Tunai', 'Terkonfirmasi', 'yes'),
+(5, '27072019190710nGCtydYb', '2019-07-27', 'user', 6, 'Bordir-02', 120000, 1, 120000, NULL, 'storage/image/bukti/3dGbQoTIsoImU5qyjryw2qp356QJ9yJB7LtNNkwP.jpeg', 38, 'Tunai', 'Terkonfirmasi', 'yes'),
+(6, '27072019193240sP9aDgRz', '2019-07-27', 'Batman', 5, 'Bordir-01', 79999, 1, 79999, NULL, 'storage/image/bukti/7ZUCaI9elq6HTJEwIeyTJscbJqcSJTJQv0wigPWB.jpeg', 40, 'Tunai', 'Terkonfirmasi', 'yes'),
+(7, '27072019193240sP9aDgRz', '2019-07-27', 'Batman', 17, 'Selop-02', 95000, 1, 95000, NULL, 'storage/image/bukti/7ZUCaI9elq6HTJEwIeyTJscbJqcSJTJQv0wigPWB.jpeg', 39, 'Tunai', 'Terkonfirmasi', 'yes'),
+(10, '28072019215715aAwQ3VuY', '2019-07-28', 'user', 5, 'Bordir-01', 79999, 1, 79999, NULL, 'storage/image/bukti/y295G68pvN4gaDOqdiUGdWUMEsV7uKy2mFRVWsSs.jpeg', 39, 'kredit', 'Terkonfirmasi', 'yes'),
+(11, '28072019215715aAwQ3VuY', '2019-07-28', 'user', 17, 'Selop-02', 95000, 1, 95000, NULL, 'storage/image/bukti/y295G68pvN4gaDOqdiUGdWUMEsV7uKy2mFRVWsSs.jpeg', 36, 'kredit', 'Terkonfirmasi', 'yes'),
+(12, '30072019045719zCbxru0Z', '2019-07-30', 'user', 11, 'Bordir-04', 89000, 1, 89000, NULL, NULL, 36, 'kredit', 'Kirim bukti pembayaran', 'yes'),
+(13, '30072019045719zCbxru0Z', '2019-07-30', 'user', 19, 'Sandal 02', 10000, 1, 10000, NULL, NULL, 36, 'kredit', 'Kirim bukti pembayaran', 'yes'),
+(14, '300720190827557CnpPBAI', '2019-07-30', 'logi', 5, 'Bordir-01', 79999, 1, 79999, NULL, 'storage/image/bukti/eJTeI6CwrOlTxHU7nqMGq97eGzLkNZ3gwOTif4La.png', 36, 'kredit', 'Terkonfirmasi', 'yes'),
+(15, '300720190827557CnpPBAI', '2019-07-30', 'logi', 6, 'Bordir-02', 120000, 1, 120000, NULL, 'storage/image/bukti/eJTeI6CwrOlTxHU7nqMGq97eGzLkNZ3gwOTif4La.png', 36, 'kredit', 'Terkonfirmasi', 'yes'),
+(16, '30072019082820AaoX942H', '2019-07-30', 'logi', 14, 'Sulam-02', 50000, 1, 50000, NULL, 'storage/image/bukti/nNgmiTOE7iR8C8lhYXeqzQ9t49ioV4L2bm63Ap2K.jpeg', 39, 'kredit', 'Terkonfirmasi', 'yes'),
+(17, '30072019082820AaoX942H', '2019-07-30', 'logi', 19, 'Sandal 02', 10000, 1, 10000, NULL, 'storage/image/bukti/nNgmiTOE7iR8C8lhYXeqzQ9t49ioV4L2bm63Ap2K.jpeg', 36, 'kredit', 'Terkonfirmasi', 'yes');
 
 -- --------------------------------------------------------
 
@@ -199,11 +211,18 @@ CREATE TABLE `pengajuan_barang` (
 --
 
 CREATE TABLE `pengiriman` (
-  `idPemesanan` int(10) NOT NULL,
+  `idPemesanan` varchar(45) NOT NULL,
   `address` varchar(45) DEFAULT NULL,
   `ongkirPengiriman` int(11) DEFAULT NULL,
   `buktiPengiriman` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pengiriman`
+--
+
+INSERT INTO `pengiriman` (`idPemesanan`, `address`, `ongkirPengiriman`, `buktiPengiriman`) VALUES
+('240720192050451YRJ3PGo', 'jalanpulang', 20000, 'storage/image/bukti/pengiriman/wQLQPV5hJ95g9GhgFQM6w26z9pL2OVn1vV4Y9aFJ.jpeg');
 
 -- --------------------------------------------------------
 
@@ -281,8 +300,29 @@ CREATE TABLE `suppliers` (
 
 CREATE TABLE `tagihan` (
   `idTagihan` int(11) NOT NULL,
-  `customerId` int(10) DEFAULT NULL
+  `customerId` int(10) DEFAULT NULL,
+  `orderId` varchar(255) NOT NULL,
+  `jumlah` double NOT NULL,
+  `sisa` double DEFAULT NULL,
+  `bukti` varchar(255) NOT NULL,
+  `tanggal` date NOT NULL,
+  `kali` int(11) NOT NULL DEFAULT '1',
+  `status` varchar(45) DEFAULT 'belum',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tagihan`
+--
+
+INSERT INTO `tagihan` (`idTagihan`, `customerId`, `orderId`, `jumlah`, `sisa`, `bukti`, `tanggal`, `kali`, `status`, `created_at`) VALUES
+(1, 12, '28072019215715aAwQ3VuY', 50000, 124999, 'storage/image/bukti/tagihan/y295G68pvN4gaDOqdiUGdWUMEsV7uKy2mFRVWsSs.jpeg', '2019-07-29', 1, 'belum', '2019-07-29 13:22:43'),
+(2, 12, '28072019215715aAwQ3VuY', 100000, 24999, 'storage/image/bukti/tagihan/CdeVBWhkvGaRDD8jFKT3asEWet8e3uVk9B24yXEx.jpeg', '2019-07-29', 1, 'belum', '2019-07-29 13:22:50'),
+(3, 12, '28072019215715aAwQ3VuY', 24999, 0, 'storage/image/bukti/tagihan/7SZCfgSoNVeImWlhmNNuRybnMyfa4AY3LVTzdyJe.jpeg', '2019-07-29', 1, 'lunas', '2019-07-29 21:37:53'),
+(4, 12, '30072019045719zCbxru0Z', 50000, 49000, '', '2019-07-30', 1, 'belum', '2019-07-29 21:57:19'),
+(5, 19, '300720190827557CnpPBAI', 100000, 99999, 'storage/image/bukti/tagihan/eJTeI6CwrOlTxHU7nqMGq97eGzLkNZ3gwOTif4La.png', '2019-07-30', 1, 'belum', '2019-07-30 01:28:50'),
+(6, 19, '30072019082820AaoX942H', 20000, 40000, 'storage/image/bukti/tagihan/nNgmiTOE7iR8C8lhYXeqzQ9t49ioV4L2bm63Ap2K.jpeg', '2019-07-30', 1, 'belum', '2019-07-30 01:28:37'),
+(7, 19, '30072019082820AaoX942H', 10000, 30000, 'storage/image/bukti/tagihan/Yo3ALXzLuJyXVgDLRZcOdYjOYRdcacqOtoKoBWeZ.jpeg', '2019-07-30', 1, 'belum', '2019-07-30 01:33:43');
 
 -- --------------------------------------------------------
 
@@ -309,7 +349,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `type`) VALUES
 (14, 'marketing', 'marketing@gmail.com', '1234', 'marketing'),
 (15, 'outside', 'outside@gmail.com', '1234', 'outside'),
 (16, 'joker', 'joker@mail.com', '1234', 'user'),
-(18, 'Batman', 'batman@mail.com', '1234', 'user');
+(18, 'Batman', 'batman@mail.com', '1234', 'user'),
+(19, 'logi', 'logi@mail.com', '$2y$10$9NFVEE6PVQb3XMfFVwTqu.bLPjJCqSAtaSo.Ln9dpEi7XtEMIGOwm', 'user');
 
 --
 -- Indexes for dumped tables
@@ -325,7 +366,8 @@ ALTER TABLE `categories`
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
-  ADD PRIMARY KEY (`customerId`);
+  ADD PRIMARY KEY (`customerId`),
+  ADD UNIQUE KEY `customerName` (`customerName`);
 
 --
 -- Indexes for table `history_pemesanan`
@@ -439,7 +481,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
@@ -452,12 +494,6 @@ ALTER TABLE `pembayaran`
 --
 ALTER TABLE `pengajuan_barang`
   MODIFY `productId` int(10) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `pengiriman`
---
-ALTER TABLE `pengiriman`
-  MODIFY `idPemesanan` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -487,13 +523,13 @@ ALTER TABLE `suppliers`
 -- AUTO_INCREMENT for table `tagihan`
 --
 ALTER TABLE `tagihan`
-  MODIFY `idTagihan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idTagihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -20,7 +20,7 @@ Sepatu Bordir.id | Accounting
     </div>
     <a href="{{url('accounting/konfirmasi')}}">Konfirmasi Pembayaran</a>
     <a href="{{url('accounting/tagihan')}}">Tagihan</a>
-    <a href="#clients">Laporan Keuangan</a>
+    <a href="{{url('accounting/laporan')}}">Laporan Keuangan</a>
     <a href="{{url('/logout')}}">Log Out</a>
 </div>
 @endsection
@@ -33,73 +33,34 @@ Sepatu Bordir.id | Accounting
                     {{csrf_field()}}
                 <div class="col-12">
                     <div class="table-responsive">
-                        <h5 style="text-align:center">ID ({{$detail[0]->idPemesanan}})</h5>
-                        <input type="hidden" name="idPemesanan" value="{{$detail[0]->idPemesanan}}">
+                        <h5 style="text-align:center">ID ({{$rs[0]->orderId}})</h5>
+                       
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col"> </th>
+                                    <th scope="col"> Angsuran Ke </th>
                                     
-                                    <th scope="col">Produk</th>
-                                    <th scope="col">Ukuran</th>
-                                    <th scope="col" class="text-center">Jumlah</th>
-                                    <th scope="col" class="text-right">Harga</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Sisa</th>
+                                    <th scope="col" >Tanggal</th>
+                                    <th scope="col" >Bukti</th>
                                     <th> </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                           
-                            $total=0;
-                         ?>
-                                @foreach($detail as $cp)
-                                <tr>
-                                    <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                    
-                                    <td>{{$cp->productName}}</td>
-                                    <td>{{$cp->size}}</td>
-                                    <td>{{$cp->quantity}}</td>
-                                    <td class="text-right">Rp. {{$cp->totalPrice}}</td>
-                                    <!-- <td class="text-right"><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </a> </td> -->
-                                </tr>
-                                <?php 
-                                    $total=$total+($cp->totalPrice);
-                                 ?>
-                                 @endforeach 
-                                
-                                <tr>
-                                    <td></td>
-                                    
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong>Total</strong></td>
-                                    <td class="text-right"><strong>Rp. {{$total}}</strong></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong>Voucher</strong></td>
-                                    <td class="text-right"><strong>{{$detail[0]->promo}}%</strong></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong>Jenis</strong></td>
-                                    <td class="text-right"><strong>{{$detail[0]->jenis}}</strong></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                
-                                    <td></td>
-                                    <td></td>
-                                    <td><strong>Yang harus dibayar</strong></td>
-                                    <td class="text-right"><strong>Rp. {{$total-($total*($detail[0]->promo/100))}}</strong></td>
-                                    <input type="hidden" name="pay" value="{{$total-($total*($detail[0]->promo/100))}}">
-                                </tr>
+                                @php $no=0; @endphp
+                                @foreach($rs as $r)
+                                @php $no++; @endphp
+                               <tr>
+                                   <td>{{$no}}</td>
+                                   <td>Rp.{{number_format($r->jumlah, 2, '.', ',')}}</td>
+                                   <td>Rp.{{number_format($r->sisa, 2, '.', ',')}}</td>
+                                   <td>{{$r->tanggal}}</td>
+                                   <td>
+                                       <img src="{{asset($r->bukti)}}" style="height:50px;height:50px" alt="">
+                                   </td>
+                               </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -115,7 +76,7 @@ Sepatu Bordir.id | Accounting
                         <div class="col-sm-12 col-md-6 text-right">
                         
                         <label for=""> <br></label>
-                            <input class="btn btn-lg btn-block btn-success text-uppercase" type="submit" value="Tagih">
+                            <!-- <input class="btn btn-lg btn-block btn-success text-uppercase" type="submit" value="Tagih"> -->
                          
                         </div>
                        

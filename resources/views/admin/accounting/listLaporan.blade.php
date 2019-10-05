@@ -27,25 +27,25 @@ Sepatu Bordir.id | Accounting
 
 @section('content')
 <div class="main">
-    <h4>Konfirmasi Pembayaran</h4>
+    <h4>Laporan Pembelian</h4>
     <table class="table table-hover ">
         <thead class="thead-light">
             <tr class="table-danger">
-                <th scope="col">ID</th>
-                <th scope="col">Tanggal</th>
-                <th scope="col">Nama Agen</th>
-                <th scope="col">Jenis Transaksi</th>
-                <th scope="col">Action</th>
+                <th scope="col">ID Pembelian</th>
+                <th scope="col">Tanggal Request</th>
+                <th scope="col">Tanggal Selesai</th>
+                <th scope="col">Status</th>
+                <th scope="col">Detail</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($orders as $od)
+            @foreach($data as $d)
             <tr>
-                    <td>{{$od->idPemesanan}}</td>
-                    <td>{{$od->tanggal}}</td>
-                    <td>Otto</td>
-                    <td>{{$od->jenisPembayaran}}</td>
-                    <td><a href="{{url('accounting/konfirmasi')}}/{{$od->idPemesanan}}" type="button" class="btn btn-light">Detail</a></td>
+                    <td>{{$d->kode}}</td>
+                    <td>{{$d->created_at}}</td>
+                    <td>{{$d->updated_at}}</td>
+                    <td>{{$d->status}}</td>
+                    <td><a href="{{url('accounting/laporan')}}/{{$d->kode}}" type="button" class="btn btn-light">Detail</a></td>
                 </tr>
             @endforeach
         </tbody>
